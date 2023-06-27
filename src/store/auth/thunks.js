@@ -26,7 +26,7 @@ export const startGoogleSignIn = (  ) => {
     }
 } 
 
-export const startCreatingUerWithEmailPassword = ({ email, password, displayName }) => {
+export const startCreatingUserWithEmailPassword = ({ email, password, displayName }) => {
     return async( dispatch ) =>{
 
         dispatch( checkingCredentials() )
