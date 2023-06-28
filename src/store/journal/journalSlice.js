@@ -46,9 +46,13 @@ initialState: {
 
             state.messageSaved = `${ action.payload.title }, actualizada correctamente`
           },
+          setPhotosToActiveNote: ( state, action ) => {
+            state.active.imageUrls = [ ...state.active.imageUrls, ...action.payload ]
+            state.isSaving = false
+          },
           deleteNoteById: ( state, action ) => {
 
           }
      }
 })
-export const { addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote, deleteNoteById, savingNewNote } = journalSlice.actions
+export const { addNewEmptyNote, setActiveNote, setNotes, setSaving, updateNote, deleteNoteById, savingNewNote, setPhotosToActiveNote } = journalSlice.actions
