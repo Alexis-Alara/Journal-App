@@ -1,14 +1,14 @@
 import { useMemo, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material"
+import { SaveOutlined, UploadOutlined, DeleteOutlined } from "@mui/icons-material"
 import { Button, Grid, IconButton, TextField, Typography } from "@mui/material"
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.css'
 
 import { useForm } from "../../hooks/useForm"
 import { ImageGallery } from "../components"
-import { setActiveNote, startSavingNote, startUploadingFiles } from "../../store/journal"
+import { setActiveNote, startSavingNote, startUploadingFiles, startDeletingNote } from "../../store/journal"
 import { useRef } from "react"
 
 export const NoteView = () => {
@@ -30,6 +30,10 @@ export const NoteView = () => {
         if( target.files === 0 ) return
 
         dispatch( startUploadingFiles( target.files ) )
+    }
+
+    const onDelete = () => {
+        dispatch( startDeletingNote() )
     }
 
     useEffect(() => {
@@ -64,6 +68,7 @@ export const NoteView = () => {
             <input
                 type='file'
                 multiple
+                accept='.jpg, .jpeg, .png'
                 onChange={ onFileInputChange }
                 style={{ display: 'none' }}
                 ref={ fileInputRef }
@@ -111,6 +116,17 @@ export const NoteView = () => {
                 value={ body }
                 onChange={ onInputChange }
             />
+        </Grid>
+
+        <Grid container justifyContent='end'>
+            <Button
+                onClick={ onDelete }
+                sx={{ mt:2 }}
+                color='error'
+            >
+                <DeleteOutlined />
+                Borrar
+            </Button>
         </Grid>
 
         <ImageGallery images={ note.imageUrls } />
